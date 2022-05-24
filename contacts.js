@@ -93,4 +93,27 @@ const getContactByName = (name) => {
   }
 };
 
-module.exports = { saveContact, getContact, getContactByName };
+const deleteContactByName = (name) => {
+  const contacts = loadContact();
+
+  const newContact = contacts.filter(
+    (contact) => contact.name.toLowerCase() !== name.toLowerCase()
+  );
+
+  if (contacts.length === newContact.length) {
+    console.log(chalk.red.bold(`${chalk.red.inverse.bold(name)} is undefined`));
+
+    return false;
+  }
+
+  fs.writeFileSync('data/contacts.json', JSON.stringify(newContact));
+
+  console.log(chalk.green.inverse.bold('Thank you, the data is deleted'));
+};
+
+module.exports = {
+  saveContact,
+  getContact,
+  getContactByName,
+  deleteContactByName,
+};
