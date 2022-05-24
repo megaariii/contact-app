@@ -73,4 +73,24 @@ const getContact = () => {
   });
 };
 
-module.exports = { saveContact, getContact };
+const getContactByName = (name) => {
+  const contacts = loadContact();
+
+  const contact = contacts.find(
+    (contact) => contact.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (!contact) {
+    console.log(chalk.red.bold(`${chalk.red.inverse.bold(name)} is undefined`));
+
+    return false;
+  }
+
+  console.log(chalk.yellow.inverse.bold(contact.name));
+  console.log(contact.phone);
+  if (contact.email) {
+    console.log(contact.email);
+  }
+};
+
+module.exports = { saveContact, getContact, getContactByName };

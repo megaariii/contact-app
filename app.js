@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const { saveContact, getContact } = require('./contacts');
+const { saveContact, getContact, getContactByName } = require('./contacts');
 
 yargs
   .command({
@@ -34,6 +34,22 @@ yargs.command({
   describe: 'Get contacts list',
   handler() {
     getContact();
+  },
+});
+
+// Get Detailed Contact
+yargs.command({
+  command: 'detail',
+  describe: 'Get detail of a contact',
+  builder: {
+    name: {
+      describe: 'Full Name',
+      demandOption: true,
+      type: 'string',
+    },
+  },
+  handler(argv) {
+    getContactByName(argv.name);
   },
 });
 
